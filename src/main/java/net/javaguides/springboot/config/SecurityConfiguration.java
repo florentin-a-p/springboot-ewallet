@@ -39,8 +39,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	}
 	
 	@Override
-	// the part of the code that makes us not be able to access
-	// other endpoints if we haven't logged in
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests().antMatchers(
 				 "/registration**",
