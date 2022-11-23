@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Transfer</title>
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+          crossorigin="anonymous">
+</head>
+<body>
+<!-- create navigation bar ( header) -->
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed"
+                    data-toggle="collapse" data-target="#navbar" aria-expanded="false"
+                    aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span> <span
+                    class="icon-bar"></span> <span class="icon-bar"></span> <span
+                    class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#" th:href="@{/}">Registration and
+                Login Module</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}">Logout</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<br>
+<br>
+<br>
+<br>
+
+<div class="container">
+    <!-- success message -->
+    <div th:if="${param.success}">
+        <div class="alert alert-info">You've successfully transferred!</div>
+    </div>
+
+    <!-- error message -->
+    <div th:if="${param.error}">
+        <div class="alert alert-danger">You haven't successfully transferred, please enter the correct information! </div>
+    </div>
+
+    <h1>Transfer</h1>
+
+    <!-- type in transfer details -->
+    <form th:action="@{/transfer}" method="post" th:object="${userTransfer}">
+        <div class="form-group">
+            <label for="sender email"> Sender Email </label>
+            <input type="text" class = "form-control" th:field="*{senderEmail}" id ="sender email" name = "sender email"
+                   placeholder="Enter your email" autofocus="autofocus">
+        </div>
+        <div class="form-group">
+            <label for="receiver email"> Receiver Email </label>
+            <input type="text" class = "form-control" th:field="*{receiverEmail}" id ="receiver email" name = "receiver email"
+                   placeholder="Enter receiver's email" autofocus="autofocus">
+        </div>
+        <div class="form-group">
+            <label for="transfer amount"> Transfer Amount </label>
+            <input type="text" class = "form-control" th:field="*{transferAmount}" id ="transfer amount" name = "transfer amount"
+                   placeholder="Enter transfer amount" autofocus="autofocus">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Transfer</button>
+        </div>
+    </form>
+
+</div>
+
+
+</body>
+</html>
