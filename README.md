@@ -27,8 +27,8 @@ Go to `ewallet.java` and click the green triangle button next to the `ewallet` c
 ## User flow
 - todo
 
-## Database ERD
-- todo
+## Database
+![img.png](img.png)
 
 ## Existing logic errors:
 - When the table `user` is truncated and the spring boot app is restarted, if the browser caches the most recent login session, the recent user would still be logged in after the restart and would be able to access topup and transfer page
@@ -39,3 +39,5 @@ Go to `ewallet.java` and click the green triangle button next to the `ewallet` c
 ## Next iteration:
 - Use Spring JWT for authentication
 - Dockerize the whole Spring Boot application
+- Use Swagger to generate documentation
+- Use Spring Data JPA model to generate ERD
