@@ -71,7 +71,7 @@
             <label for="activityType"> Choose Top Up Type </label>
             <br>
             <select th:field="*{balanceActivityType}">
-                <option th:each="balanceActivityType : ${T(net.javaguides.springboot.model.BalanceActivityType).values()}"
+                <option th:each="balanceActivityType : ${T(net.demo.springboot.model.BalanceActivityType).values()}"
                         th:value="${balanceActivityType}"
                         th:text="${balanceActivityType}"
                         id = "activityType"
