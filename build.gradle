@@ -42,6 +42,8 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
     runtimeOnly 'org.springframework.boot:spring-boot-devtools:2.3.0.RELEASE'
     runtimeOnly 'mysql:mysql-connector-java:8.0.20'
+    // https://mvnrepository.com/artifact/org.jeasy/easy-random-core
+    testImplementation 'org.jeasy:easy-random-core:5.0.0'
     testImplementation 'org.springframework.boot:spring-boot-starter-test:2.3.0.RELEASE'
     testImplementation 'org.springframework.security:spring-security-test:5.3.2.RELEASE'
 }
@@ -61,4 +63,8 @@ publishing {
 
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+}
+
+test {
+    useJUnitPlatform()
 }

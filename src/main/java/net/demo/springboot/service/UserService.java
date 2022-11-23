@@ -5,6 +5,7 @@ import net.demo.springboot.web.dto.UserRegistrationDto;
 import net.demo.springboot.web.dto.UserTopupDto;
 import net.demo.springboot.web.dto.UserTransferDto;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.stereotype.Service;
 
 public interface UserService extends UserDetailsService{
 	User save(UserRegistrationDto registrationDto);

@@ -1,5 +1,7 @@
 package net.demo.springboot.web;
 
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,9 +12,11 @@ import net.demo.springboot.service.UserService;
 import net.demo.springboot.web.dto.UserRegistrationDto;
 
 @Controller
+@NoArgsConstructor
 @RequestMapping("/registration")
 public class UserRegistrationController {
 
+	@Autowired(required=false)
 	private UserService userService;
 
 	public UserRegistrationController(UserService userService) {
