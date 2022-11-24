@@ -35,16 +35,17 @@ public class UserServiceImpl implements UserService{
 	private UserBalanceHistoryRepository userBalanceHistoryRepository;
 	private BankBalanceRepository bankBalanceRepository;
 	private BankBalanceHistoryRepository bankBalanceHistoryRepository;
-	
+
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
-
+	@Autowired
 	public UserServiceImpl(UserRepository userRepository,
 												 UserBalanceRepository userBalanceRepository,
 												 UserBalanceHistoryRepository userBalanceHistoryRepository,
 												 BankBalanceRepository bankBalanceRepository,
-												 BankBalanceHistoryRepository bankBalanceHistoryRepository) {
-		super();
+												 BankBalanceHistoryRepository bankBalanceHistoryRepository,
+												 BCryptPasswordEncoder passwordEncoder) {
+		this.passwordEncoder = passwordEncoder;
 		this.userRepository = userRepository;
 		this.userBalanceRepository = userBalanceRepository;
 		this.userBalanceHistoryRepository = userBalanceHistoryRepository;

@@ -21,6 +21,7 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.boot.test.system.CapturedOutput;
 import org.springframework.boot.test.system.OutputCaptureExtension;
 import org.springframework.http.HttpStatus;
@@ -64,6 +65,7 @@ public class TestMockMvcUserRegistrationController {
   @Mock
   private Log log;
   @InjectMocks
+  //@Autowired
   private UserRegistrationController userRegistrationController;
 
   @BeforeEach
@@ -73,7 +75,8 @@ public class TestMockMvcUserRegistrationController {
                                       userBalanceRepository,
                                       userBalanceHistoryRepository,
                                       bankBalanceRepository,
-                                      bankBalanceHistoryRepository);
+                                      bankBalanceHistoryRepository,
+                                      passwordEncoder);
   }
 
   // start region scenario for showRegistrationForm //
@@ -87,7 +90,7 @@ public class TestMockMvcUserRegistrationController {
     EasyRandom easyRandom = new EasyRandom();
     UserRegistrationDto registrationDto = easyRandom.nextObject(UserRegistrationDto.class);
     User user = easyRandom.nextObject(User.class);
-    //given(passwordEncoder.encode(any(CharSequence.class))).willReturn(easyRandom.nextObject(String.class));
+    given(passwordEncoder.encode(any(CharSequence.class))).willReturn(easyRandom.nextObject(String.class));
     given(userService.save(registrationDto)).willReturn(user);
 
 
