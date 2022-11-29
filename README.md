@@ -41,3 +41,5 @@ Go to `ewallet.java` and click the green triangle button next to the `ewallet` c
 - Dockerize the whole Spring Boot application
 - Use Swagger to generate documentation
 - Use Spring Data JPA model to generate ERD
+- Use React/Angular for the frontend instead of only HTML
+- Deploy to AWS infrastructure
