@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,26 +15,27 @@ public class UserBalance {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  //@OneToOne
-  //private User user;
-  private Long userId;
+  //private Long userId;
   private String balance = "IDR";
   private Long balanceAchieve;
   @OneToMany(mappedBy = "userBalance")
   private List<UserBalanceHistory> userBalanceHistoryList;
+  @OneToOne
+  private User user;
+
 
   public UserBalance() {
   }
 
-  public UserBalance(Long id, Long userId, Long balanceAchieve) {
+  public UserBalance(Long id, Long balanceAchieve) {
     this.id = id;
-    this.userId = userId;
+    //this.userId = userId;
     this.balanceAchieve = balanceAchieve;
   }
 
-  public UserBalance(Long userId, Long balanceAchieve) {
+  public UserBalance(Long balanceAchieve) {
     super();
-    this.userId = userId;
+    //this.userId = userId;
     this.balanceAchieve = balanceAchieve;
   }
 
@@ -45,13 +47,13 @@ public class UserBalance {
     this.id = id;
   }
 
-  public Long getUserId() {
-    return userId;
-  }
+  //public Long getUserId() {
+  //  return userId;
+  //}
 
-  public void setUserId(Long userId) {
-    this.userId = userId;
-  }
+  //public void setUserId(Long userId) {
+  //  this.userId = userId;
+  //}
 
   public String getBalance() {
     return balance;

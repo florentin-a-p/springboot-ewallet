@@ -14,6 +14,7 @@ import javax.persistence.InheritanceType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.JoinColumn;
@@ -37,7 +38,7 @@ public class User {
 	
 	private String password;
 
-	@ManyToOne
+	@OneToOne
 	private UserBalance userBalance;
 
 	public User() {

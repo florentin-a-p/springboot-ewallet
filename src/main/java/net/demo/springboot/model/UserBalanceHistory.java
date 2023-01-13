@@ -15,7 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Data
 @Table(name = "user_balance_history")
 public class UserBalanceHistory {
   @Id
@@ -62,14 +61,13 @@ public class UserBalanceHistory {
     this.id = id;
   }
 
-  public Long getUserBalanceId() {
+  //public Long getUserBalanceId() {
     //return userBalanceId;
-    return null;
-  }
+  //}
 
-  public void setUserBalanceId(Long userBalanceId) {
+  //public void setUserBalanceId(Long userBalanceId) {
     //this.userBalanceId = userBalanceId;
-  }
+  //}
 
   public Long getBalanceBefore() {
     return balanceBefore;

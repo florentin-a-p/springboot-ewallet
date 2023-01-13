@@ -88,7 +88,7 @@ public class UserServiceImpl implements UserService{
 			Long currentBalance = userBalance.getBalanceAchieve();
 			Long newBalance = userTopupDto.getTopupAmount()+currentBalance;
 
-			userBalance = new UserBalance(userBalance.getId(),user.getId(),  newBalance);
+			userBalance = new UserBalance(userBalance.getId(), newBalance);
 			userBalanceRepository.save(userBalance);
 		} catch (Exception e) { // if there isn't existing user balance
 			log.info("[FLO] userService.topup.change_user_balance_tbl catch block is called");
@@ -148,14 +148,13 @@ public class UserServiceImpl implements UserService{
 		Long currentBalanceSender = senderBalance.getBalanceAchieve();
 		Long newBalanceSender = senderBalance.getBalanceAchieve()-userTransferDto.getTransferAmount();
 
-		UserBalance newSenderBalance = new UserBalance(senderBalance.getId(),sender.getId(),newBalanceSender);
+		UserBalance newSenderBalance = new UserBalance(senderBalance.getId(), newBalanceSender);
 		userBalanceRepository.save(newSenderBalance);
 
 		// ----- change user_balance_history (sender) table -----
 		UserBalanceHistory senderBalanceHistory = userBalanceHistoryRepository.findByUserBalanceIdOrderByIdDesc(senderBalance.getId()).get(0);
 		log.info("[FLO] senderBalanceHistory found");
 		UserBalanceHistory newUserBalanceHistorySender = new UserBalanceHistory(currentBalanceSender, newBalanceSender, BalanceActivityType.DEBIT);
-		newUserBalanceHistorySender.setUserBalanceId(senderBalance.getId());
 
 		log.info("[FLO] newUserBalanceHistorySender created");
 		userBalanceHistoryRepository.save(newUserBalanceHistorySender);
@@ -169,7 +168,7 @@ public class UserServiceImpl implements UserService{
 			Long currentBalanceReceiver = receiverBalance.getBalanceAchieve();
 			Long newBalanceReceiver = receiverBalance.getBalanceAchieve()+userTransferDto.getTransferAmount();
 
-			UserBalance newReceiverBalance = new UserBalance(receiverBalance.getId(),receiver.getId(),newBalanceReceiver);
+			UserBalance newReceiverBalance = new UserBalance(receiverBalance.getId(), newBalanceReceiver);
 			userBalanceRepository.save(newReceiverBalance);
 
 			// ----- change user_balance_history (receiver) table -----
