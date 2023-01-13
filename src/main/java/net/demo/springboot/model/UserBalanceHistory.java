@@ -1,11 +1,13 @@
 package net.demo.springboot.model;
 
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -24,6 +26,8 @@ public class UserBalanceHistory {
   private String location = "INDONESIA";
   private String userAgent = "SYSTEM";
   private String author = "SYSTEM";
+  @OneToMany
+  private List<UserBalance> userBalanceList;
 
   public UserBalanceHistory() {
   }
