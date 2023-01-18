@@ -19,7 +19,6 @@ import net.demo.springboot.web.dto.UserRegistrationDto;
 import net.demo.springboot.web.dto.UserTopupDto;
 import net.demo.springboot.web.dto.UserTransferDto;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -89,7 +88,7 @@ public class UserServiceImpl implements UserService{
 			Long currentBalance = userBalance.getBalanceAchieve();
 			Long newBalance = userTopupDto.getTopupAmount()+currentBalance;
 
-			userBalance = new UserBalance(userBalance.getId(),user.getId(),  newBalance);
+			userBalance = new UserBalance(userBalance.getId(), newBalance);
 			userBalanceRepository.save(userBalance);
 		} catch (Exception e) { // if there isn't existing user balance
 			log.info("[FLO] userService.topup.change_user_balance_tbl catch block is called");
@@ -108,7 +107,7 @@ public class UserServiceImpl implements UserService{
 			Long newBalance = userTopupDto.getTopupAmount()+currentBalance;
 
 			log.info("[FLO] userService.topup.change_user_balance_history_tbl try block, balanceActivityType: "+String.valueOf(userTopupDto.getBalanceActivityType()));
-			UserBalanceHistory newUserBalanceHistory = new UserBalanceHistory(userBalance.getId(),currentBalance,newBalance,userTopupDto.getTopupActivity(),userTopupDto.getBalanceActivityType());
+			UserBalanceHistory newUserBalanceHistory = new UserBalanceHistory(currentBalance,newBalance,userTopupDto.getTopupActivity(),userTopupDto.getBalanceActivityType());
 			userBalanceHistoryRepository.save(newUserBalanceHistory);
 
 		} catch (Exception e) { // if there isn't existing user balance history
@@ -118,7 +117,7 @@ public class UserServiceImpl implements UserService{
 
 			log.info("[FLO] userService.topup.change_user_balance_history_tbl catch block, now saving the data");
 			log.info("[FLO] userService.topup.change_user_balance_history_tbl catch block, balanceActivityType: "+String.valueOf(userTopupDto.getBalanceActivityType()));
-			UserBalanceHistory newUserBalanceHistory = new UserBalanceHistory(userBalance.getId(), 0L, userBalance.getBalanceAchieve(), userTopupDto.getTopupActivity(), userTopupDto.getBalanceActivityType());
+			UserBalanceHistory newUserBalanceHistory = new UserBalanceHistory(0L, userBalance.getBalanceAchieve(), userTopupDto.getTopupActivity(), userTopupDto.getBalanceActivityType());
 			userBalanceHistoryRepository.save(newUserBalanceHistory);
 			log.info("[FLO] userService.topup.change_user_balance_history_tbl catch block, data saving is successful");
 		}
@@ -149,13 +148,14 @@ public class UserServiceImpl implements UserService{
 		Long currentBalanceSender = senderBalance.getBalanceAchieve();
 		Long newBalanceSender = senderBalance.getBalanceAchieve()-userTransferDto.getTransferAmount();
 
-		UserBalance newSenderBalance = new UserBalance(senderBalance.getId(),sender.getId(),newBalanceSender);
+		UserBalance newSenderBalance = new UserBalance(senderBalance.getId(), newBalanceSender);
 		userBalanceRepository.save(newSenderBalance);
 
 		// ----- change user_balance_history (sender) table -----
 		UserBalanceHistory senderBalanceHistory = userBalanceHistoryRepository.findByUserBalanceIdOrderByIdDesc(senderBalance.getId()).get(0);
 		log.info("[FLO] senderBalanceHistory found");
-		UserBalanceHistory newUserBalanceHistorySender = new UserBalanceHistory(senderBalance.getId(),currentBalanceSender,newBalanceSender, BalanceActivityType.DEBIT);
+		UserBalanceHistory newUserBalanceHistorySender = new UserBalanceHistory(currentBalanceSender, newBalanceSender, BalanceActivityType.DEBIT);
+
 		log.info("[FLO] newUserBalanceHistorySender created");
 		userBalanceHistoryRepository.save(newUserBalanceHistorySender);
 		log.info("[FLO] newUserBalanceHistorySender saved");
@@ -168,7 +168,7 @@ public class UserServiceImpl implements UserService{
 			Long currentBalanceReceiver = receiverBalance.getBalanceAchieve();
 			Long newBalanceReceiver = receiverBalance.getBalanceAchieve()+userTransferDto.getTransferAmount();
 
-			UserBalance newReceiverBalance = new UserBalance(receiverBalance.getId(),receiver.getId(),newBalanceReceiver);
+			UserBalance newReceiverBalance = new UserBalance(receiverBalance.getId(), newBalanceReceiver);
 			userBalanceRepository.save(newReceiverBalance);
 
 			// ----- change user_balance_history (receiver) table -----
@@ -176,7 +176,7 @@ public class UserServiceImpl implements UserService{
 			UserBalanceHistory receiverBalanceHistory = userBalanceHistoryRepository.findByUserBalanceIdOrderByIdDesc(receiverBalance.getId()).get(0);
 			log.info("[FLO] receiverBalanceHistory created");
 
-			UserBalanceHistory newUserBalanceHistoryReceiver = new UserBalanceHistory(receiverBalance.getId(),currentBalanceReceiver,newBalanceReceiver, BalanceActivityType.CREDIT);
+			UserBalanceHistory newUserBalanceHistoryReceiver = new UserBalanceHistory(currentBalanceReceiver,newBalanceReceiver, BalanceActivityType.CREDIT);
 			userBalanceHistoryRepository.save(newUserBalanceHistoryReceiver);
 			log.info("[FLO] userBalanceHistoryRepository saved");
 		} catch (Exception e) {

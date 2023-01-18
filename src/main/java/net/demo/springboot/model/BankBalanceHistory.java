@@ -1,11 +1,16 @@
 package net.demo.springboot.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,7 +19,7 @@ public class BankBalanceHistory {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private Long bankBalanceId = Long.valueOf(1);
+  //private Long bankBalanceId = Long.valueOf(1);
   private Long balanceBefore;
   private Long balanceAfter;
   private String activity = "TOP UP";
@@ -24,6 +29,10 @@ public class BankBalanceHistory {
   private String location = "INDONESIA";
   private String userAgent = "SYSTEM";
   private String author = "SYSTEM";
+  @ManyToOne
+  @JoinColumn(name = "bankBalanceId")
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  private BankBalance bankBalance;
 
   public BankBalanceHistory() {
   }
@@ -42,13 +51,13 @@ public class BankBalanceHistory {
     this.id = id;
   }
 
-  public Long getBankBalanceId() {
-    return bankBalanceId;
-  }
+  //public Long getBankBalanceId() {
+  //  return bankBalanceId;
+  //}
 
-  public void setBankBalanceId(Long bankBalanceId) {
-    this.bankBalanceId = bankBalanceId;
-  }
+  //public void setBankBalanceId(Long bankBalanceId) {
+  //  this.bankBalanceId = bankBalanceId;
+  //}
 
   public Long getBalanceBefore() {
     return balanceBefore;

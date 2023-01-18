@@ -1,11 +1,17 @@
 package net.demo.springboot.model;
 
+import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -14,7 +20,6 @@ public class UserBalanceHistory {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
-  private Long userBalanceId;
   private Long balanceBefore;
   private Long balanceAfter;
   private String activity;
@@ -24,22 +29,24 @@ public class UserBalanceHistory {
   private String location = "INDONESIA";
   private String userAgent = "SYSTEM";
   private String author = "SYSTEM";
+  @ManyToOne
+  @JoinColumn(name = "userBalanceId")
+  @OnDelete(action = OnDeleteAction.CASCADE)
+  private UserBalance userBalance;
 
   public UserBalanceHistory() {
   }
 
-  public UserBalanceHistory(Long userBalanceId, Long balanceBefore, Long balanceAfter, String activity, BalanceActivityType balanceActivityType) {
+  public UserBalanceHistory( Long balanceBefore, Long balanceAfter, String activity, BalanceActivityType balanceActivityType) {
     super();
-    this.userBalanceId = userBalanceId;
     this.balanceBefore = balanceBefore;
     this.balanceAfter = balanceAfter;
     this.activity = activity;
     this.balanceActivityType = balanceActivityType;
   }
 
-  public UserBalanceHistory(Long userBalanceId, Long balanceBefore, Long balanceAfter, BalanceActivityType balanceActivityType) {
+  public UserBalanceHistory(Long balanceBefore, Long balanceAfter, BalanceActivityType balanceActivityType) {
     super();
-    this.userBalanceId = userBalanceId;
     this.balanceBefore = balanceBefore;
     this.balanceAfter = balanceAfter;
     this.activity = "Transfer";
@@ -54,13 +61,13 @@ public class UserBalanceHistory {
     this.id = id;
   }
 
-  public Long getUserBalanceId() {
-    return userBalanceId;
-  }
+  //public Long getUserBalanceId() {
+    //return userBalanceId;
+  //}
 
-  public void setUserBalanceId(Long userBalanceId) {
-    this.userBalanceId = userBalanceId;
-  }
+  //public void setUserBalanceId(Long userBalanceId) {
+    //this.userBalanceId = userBalanceId;
+  //}
 
   public Long getBalanceBefore() {
     return balanceBefore;

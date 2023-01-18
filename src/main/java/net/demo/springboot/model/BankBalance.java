@@ -1,9 +1,11 @@
 package net.demo.springboot.model;
 
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,6 +19,8 @@ public class BankBalance {
   private Long balance_achieve;
   private String code = "999";
   private boolean enable = true;
+  @OneToMany(mappedBy = "bankBalance")
+  private List<BankBalanceHistory> bankBalanceHistoryList;
 
   public BankBalance() {
   }
